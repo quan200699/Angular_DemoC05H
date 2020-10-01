@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CategoryService} from '../../service/category/category.service';
 import {Category} from '../../interface/category';
+import {NotificationService} from '../../service/notification/notification.service';
 
 @Component({
   selector: 'app-category-create',
@@ -12,7 +13,8 @@ export class CategoryCreateComponent implements OnInit {
     name: ''
   };
 
-  constructor(private categoryService: CategoryService) {
+  constructor(private categoryService: CategoryService,
+              private notificationService: NotificationService) {
   }
 
   ngOnInit() {
@@ -20,9 +22,9 @@ export class CategoryCreateComponent implements OnInit {
 
   create() {
     this.categoryService.create(this.category).subscribe(() => {
-      alert('Thành công');
+      this.notificationService.showSuccessMessage('Thành công');
     }, () => {
-      alert('Lỗi');
+      this.notificationService.showErrorMessage();
     });
   }
 }
